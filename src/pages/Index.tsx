@@ -5,10 +5,12 @@ import Services from "@/components/Services";
 import AboutSection from "@/components/AboutSection";
 import TeamSection from "@/components/TeamSection";
 import Footer from "@/components/Footer";
+import WelcomePopup from "@/components/WelcomePopup";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <WelcomePopup />
       <Navbar />
       <HeroCarousel />
       <MissionVision />
