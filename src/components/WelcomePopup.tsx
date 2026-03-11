@@ -51,7 +51,11 @@ const slideVariants = {
   exit: { opacity: 0, x: -30 },
 };
 
-const WelcomePopup = () => {
+interface WelcomePopupProps {
+  onUserTypeSelect?: (type: "student" | "distributor" | "") => void;
+}
+
+const WelcomePopup = ({ onUserTypeSelect }: WelcomePopupProps) => {
   const [open, setOpen] = useState(true);
   const [step, setStep] = useState<Step>("welcome");
   const [userType, setUserType] = useState<"student" | "distributor" | "">("");
