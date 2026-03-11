@@ -26,7 +26,7 @@ const VisitorPopup = () => {
     const timer = setInterval(() => {
       setIsOpen(true);
       setSelection(null);
-    }, 120000); // 2 minutes
+    }, 30000); // 30 seconds
 
     // Show first time after 5 seconds
     const initial = setTimeout(() => {
