@@ -87,7 +87,7 @@ const WelcomePopup = () => {
     );
     const mailBody = encodeURIComponent(body);
     window.open(
-      `mailto:info@medlinerobotics.com?subject=${subject}&body=${mailBody}`,
+      `mailto:varane2024@indevgo.com?subject=${subject}&body=${mailBody}`,
       "_blank"
     );
 
