@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
@@ -77,11 +77,22 @@ const WelcomePopup = () => {
     setMessage("");
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
     reset();
     document.dispatchEvent(new CustomEvent("welcomePopupClosed"));
-  };
+  }, []);
+
+  // Re-open popup every 2 minutes after close
+  useEffect(() => {
+    if (!open) {
+      const timer = setInterval(() => {
+        reset();
+        setOpen(true);
+      }, 120000);
+      return () => clearInterval(timer);
+    }
+  }, [open]);
 
   const getInterestLabel = () => {
     if (userType === "student") return `Course: ${selectedCourse}`;
