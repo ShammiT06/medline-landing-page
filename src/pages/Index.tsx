@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroCarousel from "@/components/HeroCarousel";
 import MissionVision from "@/components/MissionVision";
@@ -8,11 +9,13 @@ import Footer from "@/components/Footer";
 import WelcomePopup from "@/components/WelcomePopup";
 
 const Index = () => {
+  const [userType, setUserType] = useState<"student" | "distributor" | "">("");
+
   return (
     <div className="min-h-screen bg-background">
-      <WelcomePopup />
+      <WelcomePopup onUserTypeSelect={setUserType} />
       <Navbar />
-      <HeroCarousel />
+      <HeroCarousel userType={userType} />
       <MissionVision />
       <Services />
       <AboutSection />
