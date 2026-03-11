@@ -21,17 +21,25 @@
     <script id="zsiqscript" src="https://salesiq.zohopublic.in/widget?wc=siq7e215a87776d1b25d545cfed856c26b0a759cfcda5d4cd742bdd08c791fa888d" defer></script>
     <script>
       document.addEventListener('welcomePopupClosed', function() {
-        setTimeout(function() {
-          if (window.$zoho && window.$zoho.salesiq && window.$zoho.salesiq.floatwindow) {
-            window.$zoho.salesiq.floatwindow.visible('show');
-          }
-          setInterval(function() {
-            if (window.$zoho && window.$zoho.salesiq && window.$zoho.salesiq.floatwindow) {
-              window.$zoho.salesiq.floatwindow.visible('show');
-            }
-          }, 60000);
-        }, 40000);
+        if (window.$zoho && window.$zoho.salesiq && window.$zoho.salesiq.floatwindow) {
+          window.$zoho.salesiq.floatwindow.visible('show');
+        }
       });
+      document.addEventListener('zohoBotClosed', function() {
+        document.dispatchEvent(new CustomEvent('openWelcomePopup'));
+      });
+      // Detect Zoho chat close via visibility polling
+      (function() {
+        var zohoWasOpen = false;
+        setInterval(function() {
+          var el = document.querySelector('.zsiq_floatmain');
+          var isOpen = el && el.offsetParent !== null && el.style.display !== 'none';
+          if (zohoWasOpen && !isOpen) {
+            document.dispatchEvent(new CustomEvent('zohoBotClosed'));
+          }
+          zohoWasOpen = !!isOpen;
+        }, 1000);
+      })();
     </script>
   </head>
 

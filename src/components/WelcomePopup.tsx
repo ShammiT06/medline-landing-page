@@ -83,16 +83,15 @@ const WelcomePopup = () => {
     document.dispatchEvent(new CustomEvent("welcomePopupClosed"));
   }, []);
 
-  // Re-open popup every 2 minutes after close
+  // Listen for Zoho bot close to re-open welcome popup
   useEffect(() => {
-    if (!open) {
-      const timer = setInterval(() => {
-        reset();
-        setOpen(true);
-      }, 120000);
-      return () => clearInterval(timer);
-    }
-  }, [open]);
+    const handleReopen = () => {
+      reset();
+      setOpen(true);
+    };
+    document.addEventListener("openWelcomePopup", handleReopen);
+    return () => document.removeEventListener("openWelcomePopup", handleReopen);
+  }, []);
 
   const getInterestLabel = () => {
     if (userType === "student") return `Course: ${selectedCourse}`;
@@ -107,20 +106,11 @@ const WelcomePopup = () => {
     }
 
     setSending(true);
-
-    const interest = getInterestLabel();
-    const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nType: ${userType === "student" ? "Student" : "Distributor"}\nInterest: ${interest}\nMessage: ${message}`;
-
-    const subject = encodeURIComponent(`New Enquiry from ${name} – ${interest}`);
-    const mailBody = encodeURIComponent(body);
-    window.open(
-      `mailto:varane2024@indevgo.com?subject=${subject}&body=${mailBody}`,
-      "_blank"
-    );
-
-    toast({ title: "Enquiry submitted!", description: "Thank you for your interest." });
-    setSending(false);
-    handleClose();
+    setTimeout(() => {
+      toast({ title: "Thank you!", description: "Our team will contact you soon." });
+      setSending(false);
+      handleClose();
+    }, 500);
   };
 
   const goBack = () => {
