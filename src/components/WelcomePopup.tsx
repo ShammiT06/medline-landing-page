@@ -83,16 +83,15 @@ const WelcomePopup = () => {
     document.dispatchEvent(new CustomEvent("welcomePopupClosed"));
   }, []);
 
-  // Re-open popup every 2 minutes after close
+  // Listen for Zoho bot close to re-open welcome popup
   useEffect(() => {
-    if (!open) {
-      const timer = setInterval(() => {
-        reset();
-        setOpen(true);
-      }, 120000);
-      return () => clearInterval(timer);
-    }
-  }, [open]);
+    const handleReopen = () => {
+      reset();
+      setOpen(true);
+    };
+    document.addEventListener("openWelcomePopup", handleReopen);
+    return () => document.removeEventListener("openWelcomePopup", handleReopen);
+  }, []);
 
   const getInterestLabel = () => {
     if (userType === "student") return `Course: ${selectedCourse}`;
