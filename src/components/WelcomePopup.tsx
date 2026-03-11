@@ -62,6 +62,8 @@ const WelcomePopup = () => {
   const handleClose = () => {
     setOpen(false);
     reset();
+    // Trigger Zoho SalesIQ after welcome popup closes
+    document.dispatchEvent(new CustomEvent("welcomePopupClosed"));
   };
 
   const getInterestLabel = () => {
