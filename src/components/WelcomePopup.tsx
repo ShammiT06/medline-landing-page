@@ -213,7 +213,7 @@ const WelcomePopup = ({ onUserTypeSelect }: WelcomePopupProps) => {
                     </button>
                     <button
                       className="group relative flex flex-col items-center gap-3 rounded-xl border-2 border-border bg-card p-6 transition-all duration-200 hover:border-primary hover:shadow-md"
-                      onClick={() => { setUserType("distributor"); setStep("distributor-type"); }}
+                      onClick={() => { setUserType("distributor"); setStep("distributor-type"); onUserTypeSelect?.("distributor"); }}
                     >
                       <div className="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
                         <Building2 className="h-7 w-7 text-secondary" />
