@@ -20,7 +20,12 @@
     <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}};</script>
     <script id="zsiqscript" src="https://salesiq.zohopublic.in/widget?wc=siq7e215a87776d1b25d545cfed856c26b0a759cfcda5d4cd742bdd08c791fa888d" defer></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('welcomePopupClosed', function() {
+        // Trigger immediately once
+        if (window.$zoho && window.$zoho.salesiq && window.$zoho.salesiq.floatwindow) {
+          window.$zoho.salesiq.floatwindow.visible('show');
+        }
+        // Then every 1 minute
         setInterval(function() {
           if (window.$zoho && window.$zoho.salesiq && window.$zoho.salesiq.floatwindow) {
             window.$zoho.salesiq.floatwindow.visible('show');

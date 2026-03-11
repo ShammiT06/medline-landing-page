@@ -62,6 +62,8 @@ const WelcomePopup = () => {
   const handleClose = () => {
     setOpen(false);
     reset();
+    // Trigger Zoho SalesIQ after welcome popup closes
+    document.dispatchEvent(new CustomEvent("welcomePopupClosed"));
   };
 
   const getInterestLabel = () => {
@@ -87,7 +89,7 @@ const WelcomePopup = () => {
     );
     const mailBody = encodeURIComponent(body);
     window.open(
-      `mailto:info@medlinerobotics.com?subject=${subject}&body=${mailBody}`,
+      `mailto:varane2024@indevgo.com?subject=${subject}&body=${mailBody}`,
       "_blank"
     );
 
